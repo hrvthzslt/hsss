@@ -33,8 +33,8 @@ services:
     volumes:
       - ~/.transmission/config:/config
       - ~/media/pending:/downloads/incomplete
-      - ~/media/finished:/downloads/complete
-      # - /path/to/watch/folder:/watch
+      - ~/media/finished/movies:/downloads/complete/movies
+      - ~/media/finished/shows:/downloads/complete/shows
     ports:
       - 9091:9091
       - 51413:51413
