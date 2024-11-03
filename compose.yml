@@ -24,6 +24,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
+      - USER=${TUSER}
+      - PASS=${TPASS}
       # - TRANSMISSION_WEB_HOME= #optional
       # - USER= #optional
       # - PASS= #optional
