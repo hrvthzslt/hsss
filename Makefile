@@ -14,12 +14,14 @@ help:
 
 .PHONY: start
 start: # Start the stack
-	$(DOCKER_COMPOSE) up -d;
+	@read -p "Enter user: " user; \
+	read -p "Enter pass: " pass; \
+	U=$$user P=$$pass $(DOCKER_COMPOSE) up -d;
 
 .PHONY: stop
 stop: # Stop the stack
-	$(DOCKER_COMPOSE) down;
+	@U="" P="" $(DOCKER_COMPOSE) down;
 
 .PHONY: log
 log: # Tail the logs
-	$(DOCKER_COMPOSE) logs -f
+	@U="" P="" $(DOCKER_COMPOSE) logs -f
