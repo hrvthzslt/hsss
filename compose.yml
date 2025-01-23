@@ -1,12 +1,11 @@
 services:
   jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
+    image: lscr.io/linuxserver/jellyfin:10.10.4
     container_name: jellyfin
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      # - JELLYFIN_PublishedServerUrl=http://192.168.0.5 #optional
     volumes:
       - ~/.jellyfin/config:/config
       - ~/media/finished/shows:/data/shows
@@ -18,7 +17,7 @@ services:
       - 1900:1900/udp #optional
     restart: unless-stopped
   transmission:
-    image: lscr.io/linuxserver/transmission:latest
+    image: lscr.io/linuxserver/transmission:4.0.6
     container_name: transmission
     environment:
       - PUID=1000
@@ -26,17 +25,12 @@ services:
       - TZ=Etc/UTC
       - USER=${U}
       - PASS=${P}
-      # - TRANSMISSION_WEB_HOME= #optional
-      # - USER= #optional
-      # - PASS= #optional
-      # - WHITELIST= #optional
-      # - PEERPORT= #optional
-      # - HOST_WHITELIST= #optional
     volumes:
       - ~/.transmission/config:/config
       - ~/media/pending:/downloads/incomplete
       - ~/media/finished/movies:/downloads/complete/movies
       - ~/media/finished/shows:/downloads/complete/shows
+      - ~/archive:/downloads/complete/archive
     ports:
       - 9091:9091
       - 51413:51413

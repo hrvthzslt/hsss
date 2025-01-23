@@ -14,6 +14,7 @@ help:
 
 .PHONY: start
 start: # Start the stack
+	mkdir -p ~/media/pending ~/media/finished/movies ~/media/finished/shows ~/archive
 	@read -p "Enter user: " user; \
 	read -p "Enter pass: " pass; \
 	U=$$user P=$$pass $(DOCKER_COMPOSE) up -d;
@@ -24,4 +25,8 @@ stop: # Stop the stack
 
 .PHONY: log
 log: # Tail the logs
-	@U="" P="" $(DOCKER_COMPOSE) logs -f
+	@U="" P="" $(DOCKER_COMPOSE) logs -f --tail=500
+
+.PHONY: ps
+ps: # List running services
+	@U="" P="" $(DOCKER_COMPOSE) ps
