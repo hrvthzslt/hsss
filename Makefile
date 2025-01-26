@@ -17,7 +17,7 @@ start: # Start the stack
 	mkdir -p ~/media/pending ~/media/finished/movies ~/media/finished/shows ~/archive
 	@read -p "Enter user: " user; \
 	read -p "Enter pass: " pass; \
-	U=$$user P=$$pass $(DOCKER_COMPOSE) up -d;
+	U=$$user P=$$pass $(DOCKER_COMPOSE) up -d --remove-orphans;
 
 .PHONY: stop
 stop: # Stop the stack
