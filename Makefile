@@ -12,21 +12,17 @@ endif
 help:
 	@grep -h -E '^[a-zA-Z0-9_-]+:.*?# .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: start
 start: # Start the stack
 	mkdir -p ~/media/pending ~/media/finished/movies ~/media/finished/shows ~/archive
 	@read -p "Enter user: " user; \
 	read -p "Enter pass: " pass; \
-	U=$$user P=$$pass $(DOCKER_COMPOSE) up -d --remove-orphans;
+	U=$$user P=$$pass $(DOCKER_COMPOSE) --profile "*" up -d --remove-orphans;
 
-.PHONY: stop
 stop: # Stop the stack
-	@U="" P="" $(DOCKER_COMPOSE) down;
+	@U="" P="" $(DOCKER_COMPOSE) --profile "*" down;
 
-.PHONY: log
 log: # Tail the logs
-	@U="" P="" $(DOCKER_COMPOSE) logs -f --tail=500
+	@U="" P="" $(DOCKER_COMPOSE) --profile "*" logs -f --tail=500
 
-.PHONY: ps
 ps: # List running services
-	@U="" P="" $(DOCKER_COMPOSE) ps
+	@U="" P="" $(DOCKER_COMPOSE) --profile "*" ps
