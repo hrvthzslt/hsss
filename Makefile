@@ -13,16 +13,18 @@ help:
 	@grep -h -E '^[a-zA-Z0-9_-]+:.*?# .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 start: # Start the stack
+	@if [ ! -f .env ]; then \
+		echo "ERROR: .env file not found. Check .env.example"; \
+		exit 1; \
+	fi
 	mkdir -p ~/media/pending ~/media/finished/movies ~/media/finished/shows ~/archive
-	@read -p "Enter user: " user; \
-	read -p "Enter pass: " pass; \
-	U=$$user P=$$pass $(DOCKER_COMPOSE) --profile "*" up -d --remove-orphans;
+	$(DOCKER_COMPOSE) --profile "*" up -d --remove-orphans;
 
 stop: # Stop the stack
-	@U="" P="" $(DOCKER_COMPOSE) --profile "*" down;
+	$(DOCKER_COMPOSE) --profile "*" down;
 
 log: # Tail the logs
-	@U="" P="" $(DOCKER_COMPOSE) --profile "*" logs -f --tail=500
+	$(DOCKER_COMPOSE) --profile "*" logs -f --tail=500
 
 ps: # List running services
-	@U="" P="" $(DOCKER_COMPOSE) --profile "*" ps
+	$(DOCKER_COMPOSE) --profile "*" ps

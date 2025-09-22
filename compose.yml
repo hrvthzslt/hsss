@@ -21,12 +21,13 @@ services:
   transmission:
     image: lscr.io/linuxserver/transmission:4.0.6
     container_name: transmission
+    env_file: .env
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - USER=${U}
-      - PASS=${P}
+      - USER=${TRANSMISSION_USER}
+      - PASS=${TRANSMISSION_PASS}
     volumes:
       - ~/.transmission/config:/config
       - ~/media/pending:/downloads/incomplete
