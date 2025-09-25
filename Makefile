@@ -12,13 +12,19 @@ endif
 help:
 	@grep -h -E '^[a-zA-Z0-9_-]+:.*?# .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-start: # Start all services or by a profile: make start profile=media
+prepare-volumes:
+	@mkdir -p /docker/volumes/jellyfin/config \
+		/docker/volumes/transmission/config \
+		/docker/volumes/media/finished/shows \
+		/docker/volumes/media/finished/movies \
+		/docker/volumes/media/pending \
+		/docker/volumes/archive
+
+start: prepare-volumes # Start all services or by a profile: make start profile=media
 	@if [ ! -f .env ]; then \
 		echo "ERROR: .env file not found. Check .env.example"; \
 		exit 1; \
 	fi
-
-	mkdir -p ~/media/pending ~/media/finished/movies ~/media/finished/shows ~/archive
 
 	@if [ -z "$(profile)" ]; then \
 		$(DOCKER_COMPOSE) --profile "*" up -d --remove-orphans; \

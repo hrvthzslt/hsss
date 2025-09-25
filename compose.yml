@@ -7,9 +7,9 @@ services:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - ~/.jellyfin/config:/config
-      - ~/media/finished/shows:/data/shows
-      - ~/media/finished/movies:/data/movies
+      - /docker/volumes/jellyfin/config:/config
+      - /docker/volumes/media/finished/shows:/data/shows
+      - /docker/volumes/media/finished/movies:/data/movies
     ports:
       - 8096:8096
       - 8920:8920 #optional
@@ -30,11 +30,11 @@ services:
       - USER=${TRANSMISSION_USER}
       - PASS=${TRANSMISSION_PASS}
     volumes:
-      - ~/.transmission/config:/config
-      - ~/media/pending:/downloads/incomplete
-      - ~/media/finished/movies:/downloads/complete/movies
-      - ~/media/finished/shows:/downloads/complete/shows
-      - ~/archive:/downloads/complete/archive
+      - /docker/volumes/transmission/config:/config
+      - /docker/volumes/media/pending:/downloads/incomplete
+      - /docker/volumes/media/finished/movies:/downloads/complete/movies
+      - /docker/volumes/media/finished/shows:/downloads/complete/shows
+      - /docker/volumes/archive:/downloads/complete/archive
     ports:
       - 9091:9091
       - 51413:51413
