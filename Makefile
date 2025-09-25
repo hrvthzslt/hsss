@@ -12,7 +12,7 @@ endif
 help:
 	@grep -h -E '^[a-zA-Z0-9_-]+:.*?# .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-start: # Start the stack or a profile: make start profile=media
+start: # Start all services or by a profile: make start profile=media
 	@if [ ! -f .env ]; then \
 		echo "ERROR: .env file not found. Check .env.example"; \
 		exit 1; \
@@ -26,11 +26,11 @@ start: # Start the stack or a profile: make start profile=media
 		$(DOCKER_COMPOSE) --profile "$(profile)" up -d --remove-orphans; \
 	fi
 
-stop: # Stop the stack
+stop: # Stop all services
 	$(DOCKER_COMPOSE) --profile "*" down;
 
-log: # Tail the logs
+log: # Tail all logs
 	$(DOCKER_COMPOSE) --profile "*" logs -f --tail=500
 
-ps: # List running services
+ps: # Check all running services
 	$(DOCKER_COMPOSE) --profile "*" ps
