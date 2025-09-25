@@ -12,21 +12,25 @@ endif
 help:
 	@grep -h -E '^[a-zA-Z0-9_-]+:.*?# .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?# "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: start
-start: # Start the stack
+start: # Start all services or by a profile: make start profile=media
+	@if [ ! -f .env ]; then \
+		echo "ERROR: .env file not found. Check .env.example"; \
+		exit 1; \
+	fi
+
 	mkdir -p ~/media/pending ~/media/finished/movies ~/media/finished/shows ~/archive
-	@read -p "Enter user: " user; \
-	read -p "Enter pass: " pass; \
-	U=$$user P=$$pass $(DOCKER_COMPOSE) up -d --remove-orphans;
 
-.PHONY: stop
-stop: # Stop the stack
-	@U="" P="" $(DOCKER_COMPOSE) down;
+	@if [ -z "$(profile)" ]; then \
+		$(DOCKER_COMPOSE) --profile "*" up -d --remove-orphans; \
+	else \
+		$(DOCKER_COMPOSE) --profile "$(profile)" up -d --remove-orphans; \
+	fi
 
-.PHONY: log
-log: # Tail the logs
-	@U="" P="" $(DOCKER_COMPOSE) logs -f --tail=500
+stop: # Stop all services
+	$(DOCKER_COMPOSE) --profile "*" down;
 
-.PHONY: ps
-ps: # List running services
-	@U="" P="" $(DOCKER_COMPOSE) ps
+log: # Tail all logs
+	$(DOCKER_COMPOSE) --profile "*" logs -f --tail=500
+
+ps: # Check all running services
+	$(DOCKER_COMPOSE) --profile "*" ps
