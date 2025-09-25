@@ -2,6 +2,8 @@
 
 One **compose** file, many **services**, many **profiles**.
 
+All **services** are defined in one place, and the Makefile provides targets to run them modularly. All volumes are stored under a single directory: `/docker/volumes/`, for easy management on the host.
+
 ## Dependencies
 
 - Docker compose
@@ -22,7 +24,7 @@ Start all services
 make start
 ```
 
-Start services per profile
+Start services by profile
 
 ```shell
 make start profile=media
@@ -40,21 +42,8 @@ Tail all logs
 make log
 ```
 
-Check all running services
+Check running services
 
 ```shell
 make ps
 ```
-
-## TODO
-
-Moving volumes
-
-| from                    | to                                    |
-| ----------------------- | ------------------------------------- |
-| ~/.jellyfin/config      | /docker/volumes/jellyfin/config       |
-| ~/.transmission/config  | /docker/volumes/transmission/config   |
-| ~/archive               | /docker/volumes/archive               |
-| ~/media/finished/movies | /docker/volumes/media/finished/movies |
-| ~/media/finished/shows  | /docker/volumes/media/finished/shows  |
-| ~/media/pending         | /docker/volumes/media/pending         |
