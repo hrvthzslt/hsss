@@ -45,3 +45,16 @@ Check all running services
 ```shell
 make ps
 ```
+
+## TODO
+
+Moving volumes
+
+| from                    | to                                    |
+| ----------------------- | ------------------------------------- |
+| ~/.jellyfin/config      | /docker/volumes/jellyfin/config       |
+| ~/.transmission/config  | /docker/volumes/transmission/config   |
+| ~/archive:              | /docker/volumes/archive               |
+| ~/media/finished/movies | /docker/volumes/media/finished/movies |
+| ~/media/finished/shows  | /docker/volumes/media/finished/shows  |
+| ~/media/pending         | /docker/volumes/media/pending         |
