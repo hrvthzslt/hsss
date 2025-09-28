@@ -1,9 +1,9 @@
 .PHONY: help
 .DEFAULT_GOAL := help
 
-DC_EXITS := $(shell docker compose > /dev/null 2>&1 ; echo $$?)
+DC_EXISTS := $(shell docker compose > /dev/null 2>&1 ; echo $$?)
 
-ifeq ($(DC_EXITS),0)
+ifeq ($(DC_EXISTS),0)
 	DOCKER_COMPOSE = docker compose
 else
 	DOCKER_COMPOSE = docker-compose
