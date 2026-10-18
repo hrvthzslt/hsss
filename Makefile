@@ -15,8 +15,11 @@ help:
 prepare-volumes:
 	@mkdir -p /docker/volumes/jellyfin/config \
 		/docker/volumes/transmission/config \
+	    /docker/volumes/slskd \
 		/docker/volumes/media/finished/shows \
 		/docker/volumes/media/finished/movies \
+	    /docker/volumes/media/finished/music \
+		/docker/volumes/media/finished/ebooks \
 		/docker/volumes/media/pending \
 		/docker/volumes/archive
 
