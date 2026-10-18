@@ -15,6 +15,7 @@ All **services** are defined in one place, and the Makefile provides targets to 
 | ------------ | -------------------- |
 | Jellyfin     | `jellyfin,media`     |
 | Transmission | `transmission,media` |
+| Soulseek     | `soulseek,media`     |
 
 ## Make targets
 
