@@ -10,6 +10,7 @@ services:
       - /docker/volumes/jellyfin/config:/config
       - /docker/volumes/media/finished/shows:/data/shows
       - /docker/volumes/media/finished/movies:/data/movies
+      - /docker/volumes/media/finished/music:/data/music
     ports:
       - 8096:8096
       - 8920:8920 #optional
@@ -42,4 +43,28 @@ services:
     restart: unless-stopped
     profiles:
       - transmission
+      - media
+  slskd:
+    container_name: slskd
+    environment:
+      - SLSKD_SLSK_USERNAME=${SOULSEEK_USERNAME}
+      - SLSKD_SLSK_PASSWORD=${SOULSEEK_PASSWORD}
+      - SLSKD_USERNAME=${SLSKD_WEB_USERNAME}
+      - SLSKD_PASSWORD=${SLSKD_WEB_PASSWORD}
+      - SLSKD_REMOTE_CONFIGURATION=true
+      - SLSKD_INCOMPLETE_DIR=/incomplete
+      - SLSKD_DOWNLOADS_DIR=/music
+      - SLSKD_SHARED_DIR=/music
+    ports:
+      - 5030:5030/tcp
+      - 5031:5031/tcp
+      - 50300:50300/tcp
+    volumes:
+      - /docker/volumes/slskd:/app:rw
+      - /docker/volumes/media/finished/music:/music:rw
+      - /docker/volumes/media/pending:/incomplete:rw
+    restart: unless-stopped
+    image: slskd/slskd:0.26.1
+    profiles:
+      - soulseek
       - media
