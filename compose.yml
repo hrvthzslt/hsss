@@ -51,7 +51,9 @@ services:
       - SLSKD_USERNAME=${SLSKD_WEB_USERNAME}
       - SLSKD_PASSWORD=${SLSKD_WEB_PASSWORD}
       - SLSKD_REMOTE_CONFIGURATION=true
-      - "SLSKD_SHARED_DIR=/music;/ebooks"
+      - SLSKD_INCOMPLETE_DIR=/incomplete
+      - SLSKD_DOWNLOADS_DIR=/music
+      - SLSKD_SHARED_DIR=/music
     ports:
       - 5030:5030/tcp
       - 5031:5031/tcp
@@ -59,7 +61,7 @@ services:
     volumes:
       - /docker/volumes/slskd:/app:rw
       - /docker/volumes/media/finished/music:/music:rw
-      - /docker/volumes/media/finished/ebooks:/ebooks:rw
+      - /docker/volumes/media/pending:/incomplete:rw
     restart: unless-stopped
     image: slskd/slskd:0.26.1
     profiles:
