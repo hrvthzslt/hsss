@@ -55,6 +55,8 @@ services:
       - SLSKD_INCOMPLETE_DIR=/incomplete
       - SLSKD_DOWNLOADS_DIR=/music
       - SLSKD_SHARED_DIR=/music
+      - SLSKD_UPLOAD_SLOTS=2
+      - SLSKD_UPLOAD_SPEED_LIMIT=250
     ports:
       - 5030:5030/tcp
       - 5031:5031/tcp
