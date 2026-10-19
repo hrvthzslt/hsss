@@ -10,6 +10,7 @@ services:
       - /docker/volumes/jellyfin/config:/config
       - /docker/volumes/media/finished/shows:/data/shows
       - /docker/volumes/media/finished/movies:/data/movies
+      - /docker/volumes/media/finished/music:/data/music
     ports:
       - 8096:8096
       - 8920:8920 #optional
